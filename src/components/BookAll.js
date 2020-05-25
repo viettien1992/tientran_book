@@ -1,46 +1,47 @@
-import React, {useEffect, useState} from "react";
-import axios from "axios";
-
+import useBookAll from './useBookAll';
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 function BookAll() {
-    const [books,setBooks] = useState([]);
-    useEffect(() => {
-        axios.get('https://tientran-laravel-book.herokuapp.com/api/book')
-            .then(function (response) {
-                // handle việc lấy dữ liệu thành công
-                setBooks(
-                    response.data
-                )
-            })
-            .catch(function (error) {
-                // handle lỗi
-                console.log(error);
-            })
+    const useStyles = makeStyles({
+        table: {
+            minWidth: 650,
+        },
     });
-
-    return (
-        <table style={{width:"100%"}}>
-            <tbody>
-            <tr>
-                <th>id</th>
-                <th>namebook</th>
-                <th>author</th>
-                <th>description</th>
-                <th>publication_date</th>
-            </tr>
-
-            {
-                books.map((post, index) =>
-                    <tr key={index}>
-                        <th>{ post.id} </th>
-                        <th><a href={"http://localhost:3000/book/"+post.id}>{ post.namebook}</a></th>
-                        <th>{ post.author} </th>
-                        <th>{ post.description} </th>
-                        <th>{ post.publication_date} </th>
-                    </tr>
-                )
-            }
-            </tbody>
-        </table>
-    )
+    const books = useBookAll();
+        const classes = useStyles();
+        return (
+            <TableContainer component={Paper}>
+                <Table className={classes.table} aria-label="simple table">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>id</TableCell>
+                            <TableCell align="right">namebook</TableCell>
+                            <TableCell align="right">author</TableCell>
+                            <TableCell align="right">description</TableCell>
+                            <TableCell align="right">NXB</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {books.map((row,index) => (
+                            <TableRow key={index}>
+                                <TableCell component="th" scope="row">{row.id}
+                                </TableCell>
+                                <TableCell align="right">{row.namebook}</TableCell>
+                                <TableCell align="right">{row.author}</TableCell>
+                                <TableCell align="right">{row.description}</TableCell>
+                                <TableCell align="right">{row.publication_date}</TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        )
 }
 export default BookAll;

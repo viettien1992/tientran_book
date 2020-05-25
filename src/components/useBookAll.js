@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
-function useBooks() {
+function useBookAll() {
         const [books, setBooks] = useState([]);
         useEffect(() => {
             axios.get('https://tientran-laravel-book.herokuapp.com/api/book')
@@ -17,4 +17,4 @@ function useBooks() {
         });
         return books;
 }
-export default useBooks;
+export default useBookAll;
