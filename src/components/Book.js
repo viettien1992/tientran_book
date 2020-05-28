@@ -10,6 +10,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
+import Main from "../layouts/Main";
 const useStyles = makeStyles({
     table: {
         minWidth: 650,
@@ -24,7 +25,7 @@ function Book (props){
     const isLoading=useBook(props)[1];
     const classes = useStyles();
     return (
-        <>
+        <Main>
             {isLoading===true &&(
                 <div>is loading</div>)}
 
@@ -55,7 +56,7 @@ function Book (props){
                 </Table>
             </TableContainer>
             <Button variant="outlined" onClick={() => {history.push("/book");}}>Back</Button>
-        </>
+        </Main>
     )
 }
 export default Book;
