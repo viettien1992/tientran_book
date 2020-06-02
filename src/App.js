@@ -9,8 +9,8 @@ class App extends React.Component {
     render() {
         return (
             <Router>
-                <Route exact path="/book/" component={BookAll}/>
-                <Route path='/book/:id' component={Book}/>
+                <Route exact path="/book" component={BookAll}/>
+                <Route exact path='/book/:id' component={Book}/>
                 <Route exact path="/home" component={home}/>
                 <Route exact path="/book1/add" component={AddBook}/>
             </Router>
