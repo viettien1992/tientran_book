@@ -2,6 +2,7 @@ import React from "react";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import Main from "../layouts/Main";
+import  { useHistory  } from 'react-router-dom'
 import {
   Button,
   TextField,
@@ -30,6 +31,7 @@ function AddBook() {
     .then(function (response) {
         console.log(response.data);
         // handle việc lấy dữ liệu thành công
+        window.location = '/book'
     })
     .catch(function (error) {
         // handle lỗi
@@ -50,9 +52,9 @@ function AddBook() {
     >
       <form style={{ width: "50%" }} onSubmit={submitForm} >
         <h1>Add Book Form</h1>
-        <TextField type="text" placeholder="NameBook"  fullWidth margin="normal"name="name" onChange={handleChange}/>
-        <TextField type="text" placeholder="Author"  fullWidth margin="normal"margin="normal" name="author" onChange={handleChange}/>
-        <TextField type="text" placeholder="Description"  fullWidth margin="normal"margin="normal" name="description" onChange={handleChange}/>
+        <TextField type="text" placeholder="NameBook"  fullWidth margin="normal" name="name" onChange={handleChange}/>
+        <TextField type="text" placeholder="Author"  fullWidth margin="normal" margin="normal" name="author" onChange={handleChange}/>
+        <TextField type="text" placeholder="Description"  fullWidth margin="normal" margin="normal" name="description" onChange={handleChange}/>
         <TextField type="date" placeholder="NXB"  fullWidth margin="normal"margin="normal" name="nxb" onChange={handleChange}/>
         <Button type="submit" variant="contained" color="primary" size="medium">
           Save

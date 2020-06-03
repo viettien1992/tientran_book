@@ -11,18 +11,43 @@ import CreateIcon from '@material-ui/icons/Create';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
+import axios from "axios";
+import { useHistory } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 function BookAll() {
+  let history = useHistory();
   const style ={
     display: 'flex',
     justifyContent: 'center',
     marginTop: "20px",
+  };
+  const deleteBook=(id)=>{
+    if(window.confirm(`bạn có muốn xóa hay không book có id = ${id}`)){
+      axios.delete(`https://tientran-laravel-book.herokuapp.com/api/book/${id}`)
+      .then(function (response) {
+        console.log(response.data);
+        window.location.reload();
+      })
+      .catch(function (error) {
+          // handle lỗi
+          console.log(error);
+      })
+    }
+
+  };
+
+  const editBook=(id)=>{
+    history.push("/book1/edit/"+id);
+  };
+  const red = () => {
+    history.push("/book1/add");
   }
   const books = useBookAll();
   return (
     <Main>
       <Container>
       <Typography variant="h4" style={style}>Book Details</Typography>
-      <Button variant="contained" color="primary">
+      <Button variant="contained" color="primary" onClick={() => red()}>
         Add User
       </Button>
       <Table>
@@ -45,9 +70,8 @@ function BookAll() {
                 <TableCell align="right">{row.author}</TableCell>
                 <TableCell align="right">{row.description}</TableCell>
                 <TableCell align="right">{row.publication_date}</TableCell>
-                <TableCell align="right" onClick={() => this.editUser(row.id)}><CreateIcon /></TableCell>
-                <TableCell align="right" onClick={() => this.deleteUser(row.id)}><DeleteIcon /></TableCell>
-
+                <TableCell align="right" onClick={() => editBook(row.id)}><CreateIcon /></TableCell>
+                <TableCell align="right" onClick={() => deleteBook(row.id)}><DeleteIcon /></TableCell>
               </TableRow>
           ))}
         </TableBody>
