@@ -26,8 +26,8 @@ function AddBook() {
       console.log(name,author,description,nxb);
   };
 
-  const submitForm = (e) => { 
-    axios.post(`http://127.0.0.1:8000/api/book`,{"namebook":name,"author":author,"description":description,"publication_date":nxb})
+  const submitForm = (e) => {
+    axios.post(`https://tientran-laravel-book.herokuapp.com/api/book`,{"namebook":name,"author":author,"description":description,"publication_date":nxb})
     .then(function (response) {
         console.log(response.data);
         // handle việc lấy dữ liệu thành công
@@ -37,6 +37,7 @@ function AddBook() {
         // handle lỗi
         console.log(error);
     })
+    // không reload trang khi call
     e.preventDefault();
   };
 // const addBook= useAddBook();
