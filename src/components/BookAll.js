@@ -14,11 +14,12 @@ import Container from "@material-ui/core/Container";
 import deleteBook from "../hook/useDeleteBook";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-
+import { makeStyles } from '@material-ui/core/styles';
+import Pagination from '@material-ui/lab/Pagination';
 function BookAll() {
   const { books, fetchBooks } = useBookAll();
   useEffect(() => {
-    fetchBooks();
+    fetchBooks(1,10);
   }, []);
   let history = useHistory();
   const style = {
@@ -33,7 +34,20 @@ function BookAll() {
   const red = () => {
     history.push("/book1/add");
   };
-
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      '& > *': {
+        marginTop: theme.spacing(2),
+        display:'flex',
+        justifyContent:'center',
+      },
+    },
+  }));
+  const classes = useStyles();
+  // click vào lấy page đang click
+  const handleChange = (event, value) => {
+    fetchBooks(value,10);
+  };
   return (
     <Main>
       <Container>
@@ -73,6 +87,9 @@ function BookAll() {
             ))}
           </TableBody>
         </Table>
+        <div className={classes.root}>
+          <Pagination count={10} color="primary" onChange={handleChange}/>
+        </div>
       </Container>
     </Main>
   );
