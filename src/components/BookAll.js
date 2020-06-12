@@ -12,7 +12,6 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import deleteBook from "../hook/useDeleteBook";
-import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import Pagination from '@material-ui/lab/Pagination';
