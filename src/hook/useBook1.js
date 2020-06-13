@@ -1,9 +1,8 @@
-import {useState} from "react";
+import {useEffect,useState} from "react";
 import axios from "axios";
-function useBook1(props) {
+function useBook1(id) {
     const [book1,setBooks] = useState([]);
-    function getbook(props){
-        const { id } =props.match.params;
+  useEffect(() => {
         axios.get(`https://tientran-laravel-book.herokuapp.com/api/book/${id}`)
             .then(function (response) {
                 // handle việc lấy dữ liệu thành công
@@ -16,7 +15,7 @@ function useBook1(props) {
                 console.log(error);
             })
 
-    };
-    return {book1,getbook};
+    },[]);
+    return book1;
 }
 export default useBook1;
