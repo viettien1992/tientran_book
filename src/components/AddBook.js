@@ -1,67 +1,71 @@
 import React from "react";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Main from "../layouts/Main";
-import  { useHistory  } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import {
   Button,
   TextField,
 } from "@material-ui/core";
 import useAddBook from "../hook/useBookAdd";
 function AddBook() {
-  const [name,setBooks] = useState('');
-  const [author,setAuthor] = useState('');
-  const [description,setDescription] = useState('');
-  const [nxb,setNxb] = useState('');
+  const [name, setBooks] = useState('');
+  const [author, setAuthor] = useState('');
+  const [description, setDescription] = useState('');
+  const [nxb, setNxb] = useState('');
   const handleChange = (e) => {
     let a = e.target.name;
-    if(a=='name')
+    if (a == 'name')
       setBooks(e.target.value);
-    else if(a=='author')
+    else if (a == 'author')
       setAuthor(e.target.value);
-    else if(a=='description')
+    else if (a == 'description')
       setDescription(e.target.value);
-    else if(a=='nxb')
+    else if (a == 'nxb')
       setNxb(e.target.value);
-      console.log(name,author,description,nxb);
+    console.log(name, author, description, nxb);
   };
 
   const submitForm = (e) => {
-    axios.post(`https://tientran-laravel-book.herokuapp.com/api/book`,{"namebook":name,"author":author,"description":description,"publication_date":nxb})
-    .then(function (response) {
+    axios.post(`https://tientran-laravel-book.herokuapp.com/api/book`, { "namebook": name, "author": author, "description": description, "publication_date": nxb }, {
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('auth-token') //the token is a variable which holds the token
+      }
+    })
+      .then(function (response) {
         console.log(response.data);
         // handle việc lấy dữ liệu thành công
         window.location = '/book'
-    })
-    .catch(function (error) {
+      })
+      .catch(function (error) {
         // handle lỗi
         console.log(error);
-    })
+      })
     // không reload trang khi call
     e.preventDefault();
   };
-// const addBook= useAddBook();
+  // const addBook= useAddBook();
   return (
     <Main>
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        margin: 20,
-        padding: 20,
-      }}
-    >
-      <form style={{ width: "50%" }} onSubmit={submitForm} >
-        <h1>Add Book Form</h1>
-        <TextField type="text" placeholder="NameBook"  fullWidth margin="normal" name="name" onChange={handleChange}/>
-        <TextField type="text" placeholder="Author"  fullWidth margin="normal" margin="normal" name="author" onChange={handleChange}/>
-        <TextField type="text" placeholder="Description"  fullWidth margin="normal" margin="normal" name="description" onChange={handleChange}/>
-        <TextField type="date" placeholder="NXB"  fullWidth margin="normal"margin="normal" name="nxb" onChange={handleChange}/>
-        <Button type="submit" variant="contained" color="primary" size="medium">
-          Save
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          margin: 20,
+          padding: 20,
+        }}
+      >
+        <form style={{ width: "50%" }} onSubmit={submitForm} >
+          <h1>Add Book Form</h1>
+          <TextField type="text" placeholder="NameBook" fullWidth margin="normal" name="name" onChange={handleChange} />
+          <TextField type="text" placeholder="Author" fullWidth margin="normal" margin="normal" name="author" onChange={handleChange} />
+          <TextField type="text" placeholder="Description" fullWidth margin="normal" margin="normal" name="description" onChange={handleChange} />
+          <TextField type="date" placeholder="NXB" fullWidth margin="normal" margin="normal" name="nxb" onChange={handleChange} />
+          <Button type="submit" variant="contained" color="primary" size="medium">
+            Save
         </Button>
-      </form>
-    </div>
+        </form>
+      </div>
     </Main>
   );
 }

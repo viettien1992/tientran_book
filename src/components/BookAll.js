@@ -18,7 +18,7 @@ import Pagination from '@material-ui/lab/Pagination';
 function BookAll() {
   const { books, fetchBooks } = useBookAll();
   useEffect(() => {
-    fetchBooks(1,10);
+    fetchBooks(1, 10);
   }, []);
   let history = useHistory();
   const style = {
@@ -37,20 +37,20 @@ function BookAll() {
     root: {
       '& > *': {
         marginTop: theme.spacing(2),
-        display:'flex',
-        justifyContent:'center',
+        display: 'flex',
+        justifyContent: 'center',
       },
     },
   }));
   const classes = useStyles();
   // click vào lấy page đang click
   const handleChange = (event, value) => {
-    fetchBooks(value,10);
+    fetchBooks(value, 10);
   };
   return (
     <Main>
       <Container>
-        <Typography variant="h4" style={style}>
+        <Typography component="h2" variant="h2" align="center" color="textPrimary" gutterBottom>
           Book Details
         </Typography>
         <Button variant="contained" color="primary" onClick={() => red()}>
@@ -79,7 +79,7 @@ function BookAll() {
                 <TableCell align="right" onClick={() => editBook(row.id)}>
                   <CreateIcon />
                 </TableCell>
-                <TableCell align="right" onClick={() => deleteBook(row.id,()=>{fetchBooks();})}>
+                <TableCell align="right" onClick={() => deleteBook(row.id, () => { fetchBooks(); })}>
                   <DeleteIcon />
                 </TableCell>
               </TableRow>
@@ -87,7 +87,7 @@ function BookAll() {
           </TableBody>
         </Table>
         <div className={classes.root}>
-          <Pagination count={10} color="primary" onChange={handleChange}/>
+          <Pagination count={10} color="primary" onChange={handleChange} />
         </div>
       </Container>
     </Main>

@@ -6,7 +6,11 @@ function useBookAll() {
   //
   function fetchBooks(page, limit) {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/api/book?page=${page}&&limit=${limit}`)
+      .get(`http://127.0.0.1:8000/api/book?page=${page}&&limit=${limit}`, {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('auth-token') //the token is a variable which holds the token
+        }
+      })
       .then(function (response) {
         // handle việc lấy dữ liệu thành công
         setBooks(response.data);

@@ -6,19 +6,21 @@ function useBook(props) {
     useState(() => {
         setIsLoading(true)
         const { id } = props.match.params;
-        console.log(id);
-        console.log("get api");
-        axios.get(`${process.env.REACT_APP_API_URL}/api/book/${id}`)
+        axios.get(`http://127.0.0.1:8000/api/book/${id}`, {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('auth-token') //the token is a variable which holds the token
+            }
+        })
             .then(function (response) {
                 // handle việc lấy dữ liệu thành công
                 setBooks(
                     response.data
                 )
-                console.log(1);
             })
             .catch(function (error) {
                 // handle lỗi
                 console.log(error);
+
             })
             .finally(() => {
                 setIsLoading(

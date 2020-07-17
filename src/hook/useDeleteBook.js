@@ -3,7 +3,11 @@ import axios from "axios";
 const deleteBook = (id, callback) => {
   if (window.confirm(`bạn có muốn xóa hay không book có id = ${id}`)) {
     axios
-      .delete(`${process.env.REACT_APP_API_URL}/api/book/${id}`)
+      .delete(`${process.env.REACT_APP_API_URL}/api/book/${id}`, {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('auth-token') //the token is a variable which holds the token
+        }
+      })
       .then(function (response) {
         console.log(response.data);
       })
