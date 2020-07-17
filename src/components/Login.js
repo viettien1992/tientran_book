@@ -59,7 +59,7 @@ export default function SignIn() {
         console.log(email, pass);
     }
     const handleSubmit = (e) => {
-        axios.post(`http://127.0.0.1:8000/api/login`, { "email": email, "password": pass })
+        axios.post(`https://tientran-laravel-book.herokuapp.com/login`, { "email": email, "password": pass })
             .then(function (response) {
                 console.log(response.data);
                 // handle việc lấy dữ liệu thành công
