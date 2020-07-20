@@ -4,7 +4,7 @@ function countBook() {
     const [count, Setcount] = useState('');
     useEffect(() => {
         axios
-            .get("https://tientran-laravel-book.herokuapp.com/api/book/count", {
+            .get("http://127.0.0.1:8000/api/book/count", {
                 headers: {
                     Authorization: 'Bearer ' + localStorage.getItem('auth-token') //the token is a variable which holds the token
                 }

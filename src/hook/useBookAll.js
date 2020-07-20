@@ -6,7 +6,7 @@ function useBookAll() {
   //
   function fetchBooks(page, limit) {
     axios
-      .get(`https://tientran-laravel-book.herokuapp.com/api/book?page=${page}&&limit=${limit}`, {
+      .get(`http://127.0.0.1:8000/api/book?page=${page}&&limit=${limit}`, {
         headers: {
           Authorization: 'Bearer ' + localStorage.getItem('auth-token') //the token is a variable which holds the token
         }

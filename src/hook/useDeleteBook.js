@@ -3,7 +3,7 @@ import axios from "axios";
 const deleteBook = (id, callback) => {
   if (window.confirm(`bạn có muốn xóa hay không book có id = ${id}`)) {
     axios
-      .delete(`https://tientran-laravel-book.herokuapp.com/api/book/${id}`, {
+      .delete(`http://127.0.0.1:8000/api/book/${id}`, {
         headers: {
           Authorization: 'Bearer ' + localStorage.getItem('auth-token') //the token is a variable which holds the token
         }

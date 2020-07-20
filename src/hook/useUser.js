@@ -1,25 +1,21 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-function useBook1(id) {
-    const [book1, setBooks] = useState([]);
-    useEffect(() => {
-        axios.get(`http://127.0.0.1:8000/api/book/${id}`, {
+function useInfo() {
+    const [user, setUser] = useState('');
+    useState(() => {
+        axios.get(`http://127.0.0.1:8000/api/user`, {
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('auth-token') //the token is a variable which holds the token
             }
         })
             .then(function (response) {
-                // handle việc lấy dữ liệu thành công
-                setBooks(
-                    response.data
-                )
+                setUser(response.data.user.name);
             })
             .catch(function (error) {
                 // handle lỗi
                 console.log(error);
             })
-
-    }, []);
-    return book1;
+    }, [])
+    return user;
 }
-export default useBook1;
+export default useInfo;

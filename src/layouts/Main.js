@@ -1,5 +1,4 @@
 
-
 import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
@@ -16,7 +15,8 @@ import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
-
+import axios from "axios";
+import Userinfo from '../hook/useUser';
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -29,7 +29,6 @@ function Copyright() {
     </Typography>
   );
 }
-
 const useStyles = makeStyles((theme) => ({
   '@global': {
     ul: {
@@ -127,10 +126,26 @@ const footers = [
     description: ['Privacy policy', 'Terms of use'],
   },
 ];
-
+const handleLogout = () => {
+  axios.post(`http://127.0.0.1:8000/api/logout`, { "token": localStorage.getItem('auth-token') }, {
+    headers: {
+      Authorization: 'Bearer ' + localStorage.getItem('auth-token') //the token is a variable which holds the token
+    }
+  })
+    .then(function (response) {
+      window.location.href = "http://localhost:3000/login";
+      localStorage.removeItem('auth-token');
+    })
+    .catch(function (error) {
+      // handle lỗi
+      console.log(error);
+    })
+  // không reload trang khi call
+  // e.preventDefault();
+};
 export default function Pricing(props) {
   const classes = useStyles();
-
+  console.log(Userinfo());
   return (
     <React.Fragment>
       <CssBaseline />
@@ -146,13 +161,11 @@ export default function Pricing(props) {
             <Link variant="button" color="textPrimary" href="#" className={classes.link}>
               Book
             </Link>
-            <Link variant="button" color="textPrimary" href="#" className={classes.link}>
-              Support
-            </Link>
           </nav>
-          <Button href="#" color="primary" variant="outlined" className={classes.link}>
-            Login
+          <Button href="#" color="primary" variant="outlined" className={classes.link} onClick={handleLogout}>
+            Logout
           </Button>
+
         </Toolbar>
       </AppBar>
       <Container maxWidth="md" component="main">
@@ -185,6 +198,6 @@ export default function Pricing(props) {
         </Box>
       </Container>
       {/* End footer */}
-    </React.Fragment>
+    </React.Fragment >
   );
 }
