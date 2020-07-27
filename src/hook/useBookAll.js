@@ -17,6 +17,7 @@ function useBookAll() {
       })
       .catch(function (error) {
         // handle lỗi
+        window.location.href = "http://localhost:3000/login";
         console.log(error);
       });
   }

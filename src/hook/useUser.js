@@ -9,7 +9,7 @@ function useInfo() {
             }
         })
             .then(function (response) {
-                setUser(response.data.user.name);
+                setUser(response.data.user);
             })
             .catch(function (error) {
                 // handle lỗi

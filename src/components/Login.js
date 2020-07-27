@@ -61,10 +61,11 @@ export default function SignIn() {
     const handleSubmit = (e) => {
         axios.post(`http://127.0.0.1:8000/api/login`, { "email": email, "password": pass })
             .then(function (response) {
-                console.log(response.data);
                 // handle việc lấy dữ liệu thành công
-                window.localStorage.setItem('auth-token', response.data.token)
-                return 0;
+                window.localStorage.setItem('auth-token', response.data.token);
+                document.cookie = "auth=" + response.data.auth;
+                window.location.href = "http://localhost:3000/book";
+
             })
             .catch(function (error) {
                 // handle lỗi
